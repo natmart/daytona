@@ -21,12 +21,16 @@ module DaytonaApiClient
 
     attr_accessor :total_disk_quota
 
+    # Time in seconds before an unused snapshot is deactivated
+    attr_accessor :snapshot_deactivation_timeout
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'total_cpu_quota' => :'totalCpuQuota',
         :'total_memory_quota' => :'totalMemoryQuota',
-        :'total_disk_quota' => :'totalDiskQuota'
+        :'total_disk_quota' => :'totalDiskQuota',
+        :'snapshot_deactivation_timeout' => :'snapshotDeactivationTimeout'
       }
     end
 
@@ -45,7 +49,8 @@ module DaytonaApiClient
       {
         :'total_cpu_quota' => :'Float',
         :'total_memory_quota' => :'Float',
-        :'total_disk_quota' => :'Float'
+        :'total_disk_quota' => :'Float',
+        :'snapshot_deactivation_timeout' => :'Float'
       }
     end
 
@@ -54,7 +59,8 @@ module DaytonaApiClient
       Set.new([
         :'total_cpu_quota',
         :'total_memory_quota',
-        :'total_disk_quota'
+        :'total_disk_quota',
+        :'snapshot_deactivation_timeout'
       ])
     end
 
@@ -91,6 +97,12 @@ module DaytonaApiClient
       else
         self.total_disk_quota = nil
       end
+
+      if attributes.key?(:'snapshot_deactivation_timeout')
+        self.snapshot_deactivation_timeout = attributes[:'snapshot_deactivation_timeout']
+      else
+        self.snapshot_deactivation_timeout = nil
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -115,7 +127,8 @@ module DaytonaApiClient
       self.class == o.class &&
           total_cpu_quota == o.total_cpu_quota &&
           total_memory_quota == o.total_memory_quota &&
-          total_disk_quota == o.total_disk_quota
+          total_disk_quota == o.total_disk_quota &&
+          snapshot_deactivation_timeout == o.snapshot_deactivation_timeout
     end
 
     # @see the `==` method
@@ -127,7 +140,7 @@ module DaytonaApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [total_cpu_quota, total_memory_quota, total_disk_quota].hash
+      [total_cpu_quota, total_memory_quota, total_disk_quota, snapshot_deactivation_timeout].hash
     end
 
     # Builds the object from hash

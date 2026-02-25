@@ -207,6 +207,8 @@ export class OrganizationService implements OnModuleInit, TrackableJobExecutions
     regionQuota.totalCpuQuota = updateDto.totalCpuQuota ?? regionQuota.totalCpuQuota
     regionQuota.totalMemoryQuota = updateDto.totalMemoryQuota ?? regionQuota.totalMemoryQuota
     regionQuota.totalDiskQuota = updateDto.totalDiskQuota ?? regionQuota.totalDiskQuota
+    regionQuota.snapshotDeactivationTimeout =
+      updateDto.snapshotDeactivationTimeout ?? regionQuota.snapshotDeactivationTimeout
 
     await this.regionQuotaRepository.save(regionQuota)
   }

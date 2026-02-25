@@ -26,6 +26,8 @@ type RegionQuota struct {
 	TotalCpuQuota float32 `json:"totalCpuQuota"`
 	TotalMemoryQuota float32 `json:"totalMemoryQuota"`
 	TotalDiskQuota float32 `json:"totalDiskQuota"`
+	// Time in seconds before an unused snapshot is deactivated
+	SnapshotDeactivationTimeout float32 `json:"snapshotDeactivationTimeout"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,13 +37,14 @@ type _RegionQuota RegionQuota
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRegionQuota(organizationId string, regionId string, totalCpuQuota float32, totalMemoryQuota float32, totalDiskQuota float32) *RegionQuota {
+func NewRegionQuota(organizationId string, regionId string, totalCpuQuota float32, totalMemoryQuota float32, totalDiskQuota float32, snapshotDeactivationTimeout float32) *RegionQuota {
 	this := RegionQuota{}
 	this.OrganizationId = organizationId
 	this.RegionId = regionId
 	this.TotalCpuQuota = totalCpuQuota
 	this.TotalMemoryQuota = totalMemoryQuota
 	this.TotalDiskQuota = totalDiskQuota
+	this.SnapshotDeactivationTimeout = snapshotDeactivationTimeout
 	return &this
 }
 
@@ -50,6 +53,8 @@ func NewRegionQuota(organizationId string, regionId string, totalCpuQuota float3
 // but it doesn't guarantee that properties required by API are set
 func NewRegionQuotaWithDefaults() *RegionQuota {
 	this := RegionQuota{}
+	var snapshotDeactivationTimeout float32 = 1209600
+	this.SnapshotDeactivationTimeout = snapshotDeactivationTimeout
 	return &this
 }
 
@@ -173,6 +178,30 @@ func (o *RegionQuota) SetTotalDiskQuota(v float32) {
 	o.TotalDiskQuota = v
 }
 
+// GetSnapshotDeactivationTimeout returns the SnapshotDeactivationTimeout field value
+func (o *RegionQuota) GetSnapshotDeactivationTimeout() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.SnapshotDeactivationTimeout
+}
+
+// GetSnapshotDeactivationTimeoutOk returns a tuple with the SnapshotDeactivationTimeout field value
+// and a boolean to check if the value has been set.
+func (o *RegionQuota) GetSnapshotDeactivationTimeoutOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SnapshotDeactivationTimeout, true
+}
+
+// SetSnapshotDeactivationTimeout sets field value
+func (o *RegionQuota) SetSnapshotDeactivationTimeout(v float32) {
+	o.SnapshotDeactivationTimeout = v
+}
+
 func (o RegionQuota) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -188,6 +217,7 @@ func (o RegionQuota) ToMap() (map[string]interface{}, error) {
 	toSerialize["totalCpuQuota"] = o.TotalCpuQuota
 	toSerialize["totalMemoryQuota"] = o.TotalMemoryQuota
 	toSerialize["totalDiskQuota"] = o.TotalDiskQuota
+	toSerialize["snapshotDeactivationTimeout"] = o.SnapshotDeactivationTimeout
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -206,6 +236,7 @@ func (o *RegionQuota) UnmarshalJSON(data []byte) (err error) {
 		"totalCpuQuota",
 		"totalMemoryQuota",
 		"totalDiskQuota",
+		"snapshotDeactivationTimeout",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -240,6 +271,7 @@ func (o *RegionQuota) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "totalCpuQuota")
 		delete(additionalProperties, "totalMemoryQuota")
 		delete(additionalProperties, "totalDiskQuota")
+		delete(additionalProperties, "snapshotDeactivationTimeout")
 		o.AdditionalProperties = additionalProperties
 	}
 

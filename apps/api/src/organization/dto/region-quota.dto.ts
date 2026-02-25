@@ -23,11 +23,15 @@ export class RegionQuotaDto {
   @ApiProperty()
   totalDiskQuota: number
 
+  @ApiProperty({ description: 'Time in seconds before an unused snapshot is deactivated', default: 1209600 })
+  snapshotDeactivationTimeout: number
+
   constructor(regionQuota: RegionQuota) {
     this.organizationId = regionQuota.organizationId
     this.regionId = regionQuota.regionId
     this.totalCpuQuota = regionQuota.totalCpuQuota
     this.totalMemoryQuota = regionQuota.totalMemoryQuota
     this.totalDiskQuota = regionQuota.totalDiskQuota
+    this.snapshotDeactivationTimeout = regionQuota.snapshotDeactivationTimeout
   }
 }

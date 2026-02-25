@@ -15,4 +15,7 @@ export class UpdateOrganizationRegionQuotaDto {
 
   @ApiProperty({ nullable: true })
   totalDiskQuota?: number
+
+  @ApiProperty({ nullable: true, description: 'Time in seconds before an unused snapshot is deactivated' })
+  snapshotDeactivationTimeout?: number
 }

@@ -41,6 +41,13 @@ export class RegionQuota {
   })
   totalDiskQuota: number
 
+  @Column({
+    type: 'int',
+    default: 1209600,
+    name: 'snapshot_deactivation_timeout',
+  })
+  snapshotDeactivationTimeout: number
+
   @CreateDateColumn({
     type: 'timestamp with time zone',
   })
@@ -57,11 +64,13 @@ export class RegionQuota {
     totalCpuQuota: number,
     totalMemoryQuota: number,
     totalDiskQuota: number,
+    snapshotDeactivationTimeout = 1209600,
   ) {
     this.organizationId = organizationId
     this.regionId = regionId
     this.totalCpuQuota = totalCpuQuota
     this.totalMemoryQuota = totalMemoryQuota
     this.totalDiskQuota = totalDiskQuota
+    this.snapshotDeactivationTimeout = snapshotDeactivationTimeout
   }
 }

@@ -50,5 +50,11 @@ export interface RegionQuota {
      * @memberof RegionQuota
      */
     'totalDiskQuota': number;
+    /**
+     * Time in seconds before an unused snapshot is deactivated
+     * @type {number}
+     * @memberof RegionQuota
+     */
+    'snapshotDeactivationTimeout': number;
 }
 

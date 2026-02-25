@@ -38,5 +38,11 @@ export interface UpdateOrganizationRegionQuota {
      * @memberof UpdateOrganizationRegionQuota
      */
     'totalDiskQuota': number | null;
+    /**
+     * Time in seconds before an unused snapshot is deactivated
+     * @type {number}
+     * @memberof UpdateOrganizationRegionQuota
+     */
+    'snapshotDeactivationTimeout': number | null;
 }
 

@@ -25,6 +25,9 @@ module DaytonaApiClient
 
     attr_accessor :total_disk_quota
 
+    # Time in seconds before an unused snapshot is deactivated
+    attr_accessor :snapshot_deactivation_timeout
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +35,8 @@ module DaytonaApiClient
         :'region_id' => :'regionId',
         :'total_cpu_quota' => :'totalCpuQuota',
         :'total_memory_quota' => :'totalMemoryQuota',
-        :'total_disk_quota' => :'totalDiskQuota'
+        :'total_disk_quota' => :'totalDiskQuota',
+        :'snapshot_deactivation_timeout' => :'snapshotDeactivationTimeout'
       }
     end
 
@@ -53,7 +57,8 @@ module DaytonaApiClient
         :'region_id' => :'String',
         :'total_cpu_quota' => :'Float',
         :'total_memory_quota' => :'Float',
-        :'total_disk_quota' => :'Float'
+        :'total_disk_quota' => :'Float',
+        :'snapshot_deactivation_timeout' => :'Float'
       }
     end
 
@@ -108,6 +113,12 @@ module DaytonaApiClient
       else
         self.total_disk_quota = nil
       end
+
+      if attributes.key?(:'snapshot_deactivation_timeout')
+        self.snapshot_deactivation_timeout = attributes[:'snapshot_deactivation_timeout']
+      else
+        self.snapshot_deactivation_timeout = 1209600
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -135,6 +146,10 @@ module DaytonaApiClient
         invalid_properties.push('invalid value for "total_disk_quota", total_disk_quota cannot be nil.')
       end
 
+      if @snapshot_deactivation_timeout.nil?
+        invalid_properties.push('invalid value for "snapshot_deactivation_timeout", snapshot_deactivation_timeout cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -147,6 +162,7 @@ module DaytonaApiClient
       return false if @total_cpu_quota.nil?
       return false if @total_memory_quota.nil?
       return false if @total_disk_quota.nil?
+      return false if @snapshot_deactivation_timeout.nil?
       true
     end
 
@@ -200,6 +216,16 @@ module DaytonaApiClient
       @total_disk_quota = total_disk_quota
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] snapshot_deactivation_timeout Value to be assigned
+    def snapshot_deactivation_timeout=(snapshot_deactivation_timeout)
+      if snapshot_deactivation_timeout.nil?
+        fail ArgumentError, 'snapshot_deactivation_timeout cannot be nil'
+      end
+
+      @snapshot_deactivation_timeout = snapshot_deactivation_timeout
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -209,7 +235,8 @@ module DaytonaApiClient
           region_id == o.region_id &&
           total_cpu_quota == o.total_cpu_quota &&
           total_memory_quota == o.total_memory_quota &&
-          total_disk_quota == o.total_disk_quota
+          total_disk_quota == o.total_disk_quota &&
+          snapshot_deactivation_timeout == o.snapshot_deactivation_timeout
     end
 
     # @see the `==` method
@@ -221,7 +248,7 @@ module DaytonaApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [organization_id, region_id, total_cpu_quota, total_memory_quota, total_disk_quota].hash
+      [organization_id, region_id, total_cpu_quota, total_memory_quota, total_disk_quota, snapshot_deactivation_timeout].hash
     end
 
     # Builds the object from hash

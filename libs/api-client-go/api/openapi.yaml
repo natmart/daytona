@@ -9649,6 +9649,7 @@ components:
     UpdateOrganizationRegionQuota:
       example:
         totalCpuQuota: 0.8008281904610115
+        snapshotDeactivationTimeout: 5.962133916683182
         totalMemoryQuota: 6.027456183070403
         totalDiskQuota: 1.4658129805029452
       properties:
@@ -9661,7 +9662,12 @@ components:
         totalDiskQuota:
           nullable: true
           type: number
+        snapshotDeactivationTimeout:
+          description: Time in seconds before an unused snapshot is deactivated
+          nullable: true
+          type: number
       required:
+      - snapshotDeactivationTimeout
       - totalCpuQuota
       - totalDiskQuota
       - totalMemoryQuota
@@ -9692,6 +9698,7 @@ components:
         organizationId: organizationId
         totalCpuQuota: 0.8008281904610115
         regionId: regionId
+        snapshotDeactivationTimeout: 5.962133916683182
         totalMemoryQuota: 6.027456183070403
         totalDiskQuota: 1.4658129805029452
       properties:
@@ -9705,9 +9712,14 @@ components:
           type: number
         totalDiskQuota:
           type: number
+        snapshotDeactivationTimeout:
+          default: 1209600
+          description: Time in seconds before an unused snapshot is deactivated
+          type: number
       required:
       - organizationId
       - regionId
+      - snapshotDeactivationTimeout
       - totalCpuQuota
       - totalDiskQuota
       - totalMemoryQuota

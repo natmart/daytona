@@ -30,8 +30,9 @@ class UpdateOrganizationRegionQuota(BaseModel):
     total_cpu_quota: Optional[Union[StrictFloat, StrictInt]] = Field(serialization_alias="totalCpuQuota")
     total_memory_quota: Optional[Union[StrictFloat, StrictInt]] = Field(serialization_alias="totalMemoryQuota")
     total_disk_quota: Optional[Union[StrictFloat, StrictInt]] = Field(serialization_alias="totalDiskQuota")
+    snapshot_deactivation_timeout: Optional[Union[StrictFloat, StrictInt]] = Field(description="Time in seconds before an unused snapshot is deactivated", serialization_alias="snapshotDeactivationTimeout")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["totalCpuQuota", "totalMemoryQuota", "totalDiskQuota"]
+    __properties: ClassVar[List[str]] = ["totalCpuQuota", "totalMemoryQuota", "totalDiskQuota", "snapshotDeactivationTimeout"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +95,11 @@ class UpdateOrganizationRegionQuota(BaseModel):
         if self.total_disk_quota is None and "total_disk_quota" in self.model_fields_set:
             _dict['totalDiskQuota'] = None
 
+        # set to None if snapshot_deactivation_timeout (nullable) is None
+        # and model_fields_set contains the field
+        if self.snapshot_deactivation_timeout is None and "snapshot_deactivation_timeout" in self.model_fields_set:
+            _dict['snapshotDeactivationTimeout'] = None
+
         return _dict
 
     @classmethod
@@ -108,7 +114,8 @@ class UpdateOrganizationRegionQuota(BaseModel):
         _obj = cls.model_validate({
             "total_cpu_quota": obj.get("totalCpuQuota"),
             "total_memory_quota": obj.get("totalMemoryQuota"),
-            "total_disk_quota": obj.get("totalDiskQuota")
+            "total_disk_quota": obj.get("totalDiskQuota"),
+            "snapshot_deactivation_timeout": obj.get("snapshotDeactivationTimeout")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

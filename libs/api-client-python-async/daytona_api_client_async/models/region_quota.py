@@ -32,8 +32,9 @@ class RegionQuota(BaseModel):
     total_cpu_quota: Union[StrictFloat, StrictInt] = Field(serialization_alias="totalCpuQuota")
     total_memory_quota: Union[StrictFloat, StrictInt] = Field(serialization_alias="totalMemoryQuota")
     total_disk_quota: Union[StrictFloat, StrictInt] = Field(serialization_alias="totalDiskQuota")
+    snapshot_deactivation_timeout: Union[StrictFloat, StrictInt] = Field(description="Time in seconds before an unused snapshot is deactivated", serialization_alias="snapshotDeactivationTimeout")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["organizationId", "regionId", "totalCpuQuota", "totalMemoryQuota", "totalDiskQuota"]
+    __properties: ClassVar[List[str]] = ["organizationId", "regionId", "totalCpuQuota", "totalMemoryQuota", "totalDiskQuota", "snapshotDeactivationTimeout"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,7 +98,8 @@ class RegionQuota(BaseModel):
             "region_id": obj.get("regionId"),
             "total_cpu_quota": obj.get("totalCpuQuota"),
             "total_memory_quota": obj.get("totalMemoryQuota"),
-            "total_disk_quota": obj.get("totalDiskQuota")
+            "total_disk_quota": obj.get("totalDiskQuota"),
+            "snapshot_deactivation_timeout": obj.get("snapshotDeactivationTimeout") if obj.get("snapshotDeactivationTimeout") is not None else 1209600
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
